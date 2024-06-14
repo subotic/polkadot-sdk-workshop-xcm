@@ -1,5 +1,5 @@
 /// Lesson 1
-#[cfg(feature = "location")]
+// #[cfg(feature = "location")]
 pub mod location;
 
 /// Lesson 2

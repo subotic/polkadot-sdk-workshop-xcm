@@ -7,9 +7,10 @@ mod sandbox {
 
 #[cfg(feature = "relay-token")]
 mod sandbox {
+  use xcm_builder::NativeAsset;
 	// We want to accept any location as a reserve for their own native token.
 	// TODO: Finish type.
-	pub type TrustedReserves = ();
+	pub type TrustedReserves = NativeAsset;
 }
 
 #[cfg(any(
@@ -37,6 +38,6 @@ mod sandbox {
 	}
 
 	/// We trust other chains as reserves of their own asset AND assets from asset hub.
-	// TODO: Finish type.
-	pub type TrustedReserves = ();
+	// TODO: Finish type. == Done ==
+	pub type TrustedReserves = NativeAsset;
 }

@@ -27,15 +27,18 @@ fn reserve_asset_transfer_works() {
 
 	ParaC::execute_with(|| {
 		// Parachain C registers its native token on Parachain A.
+		let our_location_pov_para_a: Location = (Parent, Parachain(3)).into();
 		let destination: Location = (Parent, Parachain(1)).into();
 		let call = parachain::RuntimeCall::ForeignAssets(pallet_assets::Call::<
 			parachain::Runtime,
 			pallet_assets::Instance2,
 		>::create {
 			id: (Parent, Parachain(3)).into(),
-			admin: parachain::LocationConverter::convert_location(&destination).unwrap(),
+			admin: parachain::LocationConverter::convert_location(&our_location_pov_para_a).unwrap(),
 			min_balance: 1,
 		});
+		// to get the weight, set (100, 100) and do a dry run.
+		// Error will contain the estimated weight.
 		let estimated_weight = Weight::from_parts(276_838_000, 3_675);
 		let message = Xcm::<()>::builder()
 			.withdraw_asset((Here, 50u128 * CENTS))
